@@ -5,14 +5,13 @@
 ![GitHub forks](https://img.shields.io/github/forks/lesskop/shtosh-calculator?style=social)
 ![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCWNlTmzBisvogxKQMV-lhRw?style=social)
 
-
 Simple cross-platform GUI calculator written in Python
+
+![shtosh calculator](shtosh-calculator.png)
 
 ## Requirements
 
 `pip install -r requirements.txt`
-
----
 
 ## Video tutorials
 
@@ -25,3 +24,5 @@ The third video at the editing stage
 ## Articles on Habr
 
 [First article](https://habr.com/p/586730/)
+
+[Second article](https://habr.com/p/587276/)
