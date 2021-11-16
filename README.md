@@ -13,16 +13,18 @@ Simple cross-platform GUI calculator written in Python
 
 `pip install -r requirements.txt`
 
-## Video tutorials
+## Tutorials
+
+### YouTube
 
 [First video](https://youtu.be/q3ma5waVGb0)
 
 [Second video](https://youtu.be/z5WbSgIJU_s)
 
-The third video at the editing stage
+[Third video](https://youtu.be/F2HXymOhfSQ)
 
-## Articles on Habr
+### Статьи на Хабре
 
-[First article](https://habr.com/p/586730/)
+[Первая статья](https://habr.com/p/586730/)
 
-[Second article](https://habr.com/p/587276/)
+[Вторая статья](https://habr.com/p/587276/)

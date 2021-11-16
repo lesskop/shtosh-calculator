@@ -1,5 +1,5 @@
 from PySide6.QtCore import (QCoreApplication, QMetaObject, QSize, Qt)
-from PySide6.QtGui import (QCursor, QIcon)
+from PySide6.QtGui import (QCursor, QIcon, QShortcut)
 from PySide6.QtWidgets import (QGridLayout, QLabel, QLineEdit, QWidget,
                                QPushButton, QSizePolicy, QVBoxLayout)
 import files_rc
@@ -242,84 +242,79 @@ class Ui_MainWindow(object):
 
         QMetaObject.connectSlotsByName(MainWindow)
 
-    # setupUi
-
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"shtosh calculator", None))
-        self.lbl_temp.setText("")
         self.le_entry.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.btn_1.setText(QCoreApplication.translate("MainWindow", u"1", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_1.setShortcut(QCoreApplication.translate("MainWindow", u"1", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_7.setText(QCoreApplication.translate("MainWindow", u"7", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_7.setShortcut(QCoreApplication.translate("MainWindow", u"7", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_4.setText(QCoreApplication.translate("MainWindow", u"4", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_4.setShortcut(QCoreApplication.translate("MainWindow", u"4", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_neg.setText(QCoreApplication.translate("MainWindow", u"+/-", None))
         self.btn_0.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_0.setShortcut(QCoreApplication.translate("MainWindow", u"0", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_clear.setText(QCoreApplication.translate("MainWindow", u"C", None))
         self.btn_point.setText(QCoreApplication.translate("MainWindow", u".", None))
-        # if QT_CONFIG(shortcut)
-        self.btn_point.setShortcut(QCoreApplication.translate("MainWindow", u".", None))
-        # endif // QT_CONFIG(shortcut)
+
+        for sc in (',', '.'):
+            QShortcut(sc, self.btn_point).activated.connect(self.btn_point.animateClick)
+
         self.btn_calc.setText(QCoreApplication.translate("MainWindow", u"=", None))
-        # if QT_CONFIG(shortcut)
-        self.btn_calc.setShortcut(QCoreApplication.translate("MainWindow", u"=", None))
-        # endif // QT_CONFIG(shortcut)
+
+        for sc in ('=', 'Enter', 'Return'):
+            QShortcut(sc, self.btn_calc).activated.connect(self.btn_calc.animateClick)
+
         self.btn_add.setText(QCoreApplication.translate("MainWindow", u"+", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_add.setShortcut(QCoreApplication.translate("MainWindow", u"+", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_sub.setText(QCoreApplication.translate("MainWindow", u"\u2212", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_sub.setShortcut(QCoreApplication.translate("MainWindow", u"-", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_mul.setText(QCoreApplication.translate("MainWindow", u"\u00d7", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_mul.setShortcut(QCoreApplication.translate("MainWindow", u"*", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_div.setText(QCoreApplication.translate("MainWindow", u"/", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_div.setShortcut(QCoreApplication.translate("MainWindow", u"/", None))
-        # endif // QT_CONFIG(shortcut)
-        self.btn_backspace.setText("")
-        # if QT_CONFIG(shortcut)
+
         self.btn_backspace.setShortcut(QCoreApplication.translate("MainWindow", u"Backspace", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_ce.setText(QCoreApplication.translate("MainWindow", u"CE", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_ce.setShortcut(QCoreApplication.translate("MainWindow", u"Del", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_8.setText(QCoreApplication.translate("MainWindow", u"8", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_8.setShortcut(QCoreApplication.translate("MainWindow", u"8", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_9.setText(QCoreApplication.translate("MainWindow", u"9", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_9.setShortcut(QCoreApplication.translate("MainWindow", u"9", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_6.setText(QCoreApplication.translate("MainWindow", u"6", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_6.setShortcut(QCoreApplication.translate("MainWindow", u"6", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_5.setText(QCoreApplication.translate("MainWindow", u"5", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_5.setShortcut(QCoreApplication.translate("MainWindow", u"5", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_2.setText(QCoreApplication.translate("MainWindow", u"2", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_2.setShortcut(QCoreApplication.translate("MainWindow", u"2", None))
-        # endif // QT_CONFIG(shortcut)
+
         self.btn_3.setText(QCoreApplication.translate("MainWindow", u"3", None))
-        # if QT_CONFIG(shortcut)
+
         self.btn_3.setShortcut(QCoreApplication.translate("MainWindow", u"3", None))
-# endif // QT_CONFIG(shortcut)
-# retranslateUi
