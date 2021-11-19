@@ -17,14 +17,14 @@ Simple cross-platform GUI calculator written in Python
 
 ### YouTube
 
+[Playlist](https://youtube.com/playlist?list=PLYnS0rRL606FQ3c4MURxJSNCIT0rrTUzB)
+
 [First video](https://youtu.be/q3ma5waVGb0)
-
-[Second video](https://youtu.be/z5WbSgIJU_s)
-
-[Third video](https://youtu.be/F2HXymOhfSQ)
 
 ### Статьи на Хабре
 
 [Первая статья](https://habr.com/p/586730/)
 
 [Вторая статья](https://habr.com/p/587276/)
+
+[Третья статья](https://habr.com/p/589847/)
