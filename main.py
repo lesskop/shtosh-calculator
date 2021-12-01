@@ -108,7 +108,7 @@ class Calculator(QMainWindow):
             if len(entry) == 2 and '-' in entry:
                 self.entry.setText('0')
             else:
-                self.entry.setText(entry[:-1])
+                self.entry.setText(entry.replace('0', ''))  # entry[:-1]
         else:
             self.entry.setText('0')
 
@@ -135,7 +135,8 @@ class Calculator(QMainWindow):
     @staticmethod
     def remove_trailing_zeros(num: str) -> str:
         n = str(float(num))
-        return n[:-2] if n[-2:] == '.0' else n
+        return n.replace('.0', '') if n.endswith('.0') else n
+        # return n[:-2] if n[-2:] == '.0' else n
 
     def add_temp(self) -> None:
         btn = self.sender()
@@ -201,7 +202,7 @@ class Calculator(QMainWindow):
                 if self.get_math_sign() == '=':
                     self.add_temp()
                 else:
-                    self.temp.setText(temp[:-2] + f'{btn.text()} ')
+                    self.temp.setText(temp[:-2] + f'{btn.text()} ')  # replace sign
             else:
                 try:
                     self.temp.setText(self.calculate() + f' {btn.text()} ')

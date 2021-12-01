@@ -12,28 +12,29 @@ class Ui_MainWindow(object):
         MainWindow.resize(300, 500)
         MainWindow.setMinimumSize(QSize(300, 500))
         icon = QIcon()
-        icon.addFile(u":/icons/icons/calculator.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icons/icons/calculator.svg", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet(u"QWidget {\n"
-                                 "	color: white;\n"
-                                 "	background-color: #121212;\n"
-                                 "	font-family: Rubik;\n"
-                                 "	font-size: 16pt;\n"
-                                 "	font-weight: 600;\n"
-                                 "}\n"
+                                 "                color: white;\n"
+                                 "                background-color: #121212;\n"
+                                 "                font-family: Rubik;\n"
+                                 "                font-size: 16pt;\n"
+                                 "                font-weight: 600;\n"
+                                 "                }\n"
                                  "\n"
-                                 "QPushButton {\n"
-                                 "	background-color: transparent;\n"
-                                 "	border: none;\n"
-                                 "}\n"
+                                 "                QPushButton {\n"
+                                 "                background-color: transparent;\n"
+                                 "                border: none;\n"
+                                 "                }\n"
                                  "\n"
-                                 "QPushButton:hover {\n"
-                                 "	background-color: #666;\n"
-                                 "}\n"
+                                 "                QPushButton:hover {\n"
+                                 "                background-color: #666;\n"
+                                 "                }\n"
                                  "\n"
-                                 "QPushButton:pressed {\n"
-                                 "	background-color: #888;\n"
-                                 "}")
+                                 "                QPushButton:pressed {\n"
+                                 "                background-color: #888;\n"
+                                 "                }\n"
+                                 "            ")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -58,7 +59,8 @@ class Ui_MainWindow(object):
         sizePolicy1.setHeightForWidth(self.le_entry.sizePolicy().hasHeightForWidth())
         self.le_entry.setSizePolicy(sizePolicy1)
         self.le_entry.setStyleSheet(u"font-size: 40pt;\n"
-                                    "border: none;")
+                                    "                                border: none;\n"
+                                    "                            ")
         self.le_entry.setMaxLength(16)
         self.le_entry.setAlignment(Qt.AlignRight | Qt.AlignTrailing | Qt.AlignVCenter)
         self.le_entry.setReadOnly(True)
@@ -67,16 +69,16 @@ class Ui_MainWindow(object):
 
         self.layout_buttons = QGridLayout()
         self.layout_buttons.setObjectName(u"layout_buttons")
-        self.btn_1 = QPushButton(self.centralwidget)
-        self.btn_1.setObjectName(u"btn_1")
+        self.btn_clear = QPushButton(self.centralwidget)
+        self.btn_clear.setObjectName(u"btn_clear")
         sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.btn_1.sizePolicy().hasHeightForWidth())
-        self.btn_1.setSizePolicy(sizePolicy2)
-        self.btn_1.setCursor(QCursor(Qt.PointingHandCursor))
+        sizePolicy2.setHeightForWidth(self.btn_clear.sizePolicy().hasHeightForWidth())
+        self.btn_clear.setSizePolicy(sizePolicy2)
+        self.btn_clear.setCursor(QCursor(Qt.PointingHandCursor))
 
-        self.layout_buttons.addWidget(self.btn_1, 3, 0, 1, 1)
+        self.layout_buttons.addWidget(self.btn_clear, 0, 0, 1, 1)
 
         self.btn_7 = QPushButton(self.centralwidget)
         self.btn_7.setObjectName(u"btn_7")
@@ -86,13 +88,21 @@ class Ui_MainWindow(object):
 
         self.layout_buttons.addWidget(self.btn_7, 1, 0, 1, 1)
 
-        self.btn_4 = QPushButton(self.centralwidget)
-        self.btn_4.setObjectName(u"btn_4")
-        sizePolicy2.setHeightForWidth(self.btn_4.sizePolicy().hasHeightForWidth())
-        self.btn_4.setSizePolicy(sizePolicy2)
-        self.btn_4.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_0 = QPushButton(self.centralwidget)
+        self.btn_0.setObjectName(u"btn_0")
+        sizePolicy2.setHeightForWidth(self.btn_0.sizePolicy().hasHeightForWidth())
+        self.btn_0.setSizePolicy(sizePolicy2)
+        self.btn_0.setCursor(QCursor(Qt.PointingHandCursor))
 
-        self.layout_buttons.addWidget(self.btn_4, 2, 0, 1, 1)
+        self.layout_buttons.addWidget(self.btn_0, 4, 1, 1, 1)
+
+        self.btn_1 = QPushButton(self.centralwidget)
+        self.btn_1.setObjectName(u"btn_1")
+        sizePolicy2.setHeightForWidth(self.btn_1.sizePolicy().hasHeightForWidth())
+        self.btn_1.setSizePolicy(sizePolicy2)
+        self.btn_1.setCursor(QCursor(Qt.PointingHandCursor))
+
+        self.layout_buttons.addWidget(self.btn_1, 3, 0, 1, 1)
 
         self.btn_neg = QPushButton(self.centralwidget)
         self.btn_neg.setObjectName(u"btn_neg")
@@ -102,21 +112,13 @@ class Ui_MainWindow(object):
 
         self.layout_buttons.addWidget(self.btn_neg, 4, 0, 1, 1)
 
-        self.btn_0 = QPushButton(self.centralwidget)
-        self.btn_0.setObjectName(u"btn_0")
-        sizePolicy2.setHeightForWidth(self.btn_0.sizePolicy().hasHeightForWidth())
-        self.btn_0.setSizePolicy(sizePolicy2)
-        self.btn_0.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_4 = QPushButton(self.centralwidget)
+        self.btn_4.setObjectName(u"btn_4")
+        sizePolicy2.setHeightForWidth(self.btn_4.sizePolicy().hasHeightForWidth())
+        self.btn_4.setSizePolicy(sizePolicy2)
+        self.btn_4.setCursor(QCursor(Qt.PointingHandCursor))
 
-        self.layout_buttons.addWidget(self.btn_0, 4, 1, 1, 1)
-
-        self.btn_clear = QPushButton(self.centralwidget)
-        self.btn_clear.setObjectName(u"btn_clear")
-        sizePolicy2.setHeightForWidth(self.btn_clear.sizePolicy().hasHeightForWidth())
-        self.btn_clear.setSizePolicy(sizePolicy2)
-        self.btn_clear.setCursor(QCursor(Qt.PointingHandCursor))
-
-        self.layout_buttons.addWidget(self.btn_clear, 0, 0, 1, 1)
+        self.layout_buttons.addWidget(self.btn_4, 2, 0, 1, 1)
 
         self.btn_point = QPushButton(self.centralwidget)
         self.btn_point.setObjectName(u"btn_point")
@@ -172,7 +174,7 @@ class Ui_MainWindow(object):
         self.btn_backspace.setSizePolicy(sizePolicy2)
         self.btn_backspace.setCursor(QCursor(Qt.PointingHandCursor))
         icon1 = QIcon()
-        icon1.addFile(u":/icons/icons/backspace.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/icons/icons/backspace.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_backspace.setIcon(icon1)
         self.btn_backspace.setIconSize(QSize(24, 24))
 
