@@ -15,6 +15,7 @@ operations = {
     '/': truediv
 }
 
+
 class Calculator(QMainWindow):
     def __init__(self):
         super(Calculator, self).__init__()
@@ -30,7 +31,7 @@ class Calculator(QMainWindow):
         # connect digits
         for btn in config.DIGIT_BUTTONS:
             getattr(self.ui, btn).clicked.connect(self.add_digit)
-            
+
         # connect math operations
         self.ui.btn_calc.clicked.connect(self.calculate)
         for btn in config.MATH_OPERATIONS:
@@ -154,9 +155,11 @@ class Calculator(QMainWindow):
         if temp:
             try:
                 result = self.remove_trailing_zeros(
-                    str(operations[self.get_math_sign()](self.get_temp_num(), self.get_entry_num()))
+                    str(operations[self.get_math_sign()](
+                        self.get_temp_num(), self.get_entry_num()))
                 )
-                self.temp.setText(temp + self.remove_trailing_zeros(entry) + ' =')
+                self.temp.setText(
+                    temp + self.remove_trailing_zeros(entry) + ' =')
                 self.adjust_temp_font_size()
                 self.entry.setText(result)
                 self.adjust_entry_font_size()
@@ -182,7 +185,9 @@ class Calculator(QMainWindow):
                 if self.get_math_sign() == '=':
                     self.add_temp()
                 else:
-                    self.temp.setText(temp[:-2] + f'{btn.text()} ')  # replace sign
+                    # Replace sign
+                    self.temp.setText(
+                        temp[:-2] + f'{btn.text()} ')
             else:
                 try:
                     self.temp.setText(self.calculate() + f' {btn.text()} ')
@@ -205,31 +210,22 @@ class Calculator(QMainWindow):
             self.disable_buttons(False)
 
     def disable_buttons(self, disable: bool) -> None:
-        self.ui.btn_calc.setDisabled(disable)
-        self.ui.btn_add.setDisabled(disable)
-        self.ui.btn_sub.setDisabled(disable)
-        self.ui.btn_mul.setDisabled(disable)
-        self.ui.btn_div.setDisabled(disable)
-        self.ui.btn_neg.setDisabled(disable)
-        self.ui.btn_point.setDisabled(disable)
+        for btn in config.BUTTONS_TO_DISABLE:
+            getattr(self.ui, btn).setDisabled(disable)
 
         color = 'color: #888;' if disable else 'color: white;'
         self.change_buttons_color(color)
 
     def change_buttons_color(self, css_color: str) -> None:
-        self.ui.btn_calc.setStyleSheet(css_color)
-        self.ui.btn_add.setStyleSheet(css_color)
-        self.ui.btn_sub.setStyleSheet(css_color)
-        self.ui.btn_mul.setStyleSheet(css_color)
-        self.ui.btn_div.setStyleSheet(css_color)
-        self.ui.btn_neg.setStyleSheet(css_color)
-        self.ui.btn_point.setStyleSheet(css_color)
+        for btn in config.BUTTONS_TO_DISABLE:
+            getattr(self.ui, btn).setStyleSheet(css_color)
 
     def adjust_entry_font_size(self) -> None:
         font_size = config.DEFAULT_ENTRY_FONT_SIZE
         while self.get_entry_text_width() > self.entry.width() - 15:
             font_size -= 1
-            self.entry.setStyleSheet('font-size: ' + str(font_size) + 'pt; border: none;')
+            self.entry.setStyleSheet(
+                'font-size: ' + str(font_size) + 'pt; border: none;')
 
         font_size = 1
         while self.get_entry_text_width() < self.entry.width() - 60:
@@ -238,13 +234,15 @@ class Calculator(QMainWindow):
             if font_size > config.DEFAULT_ENTRY_FONT_SIZE:
                 break
 
-            self.entry.setStyleSheet('font-size: ' + str(font_size) + 'pt; border: none;')
+            self.entry.setStyleSheet(
+                'font-size: ' + str(font_size) + 'pt; border: none;')
 
     def adjust_temp_font_size(self) -> None:
         font_size = config.DEFAULT_FONT_SIZE
         while self.get_temp_text_width() > self.temp.width() - 10:
             font_size -= 1
-            self.temp.setStyleSheet('font-size: ' + str(font_size) + 'pt; color: #888;')
+            self.temp.setStyleSheet(
+                'font-size: ' + str(font_size) + 'pt; color: #888;')
 
         font_size = 1
         while self.get_temp_text_width() < self.temp.width() - 60:
@@ -253,7 +251,8 @@ class Calculator(QMainWindow):
             if font_size > config.DEFAULT_FONT_SIZE:
                 break
 
-            self.temp.setStyleSheet('font-size: ' + str(font_size) + 'pt; color: #888;')
+            self.temp.setStyleSheet(
+                'font-size: ' + str(font_size) + 'pt; color: #888;')
 
     def resizeEvent(self, event) -> None:
         self.adjust_entry_font_size()
