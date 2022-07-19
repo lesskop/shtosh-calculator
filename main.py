@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtGui import QFontDatabase
 
 from design import Ui_MainWindow
+import config
 
 operations = {
     '+': add,
@@ -13,13 +14,6 @@ operations = {
     '×': mul,
     '/': truediv
 }
-
-error_zero_div = 'Division by zero'
-error_undefined = 'Result is undefined'
-
-default_font_size = 16
-default_entry_font_size = 40
-
 
 class Calculator(QMainWindow):
     def __init__(self):
@@ -33,41 +27,28 @@ class Calculator(QMainWindow):
 
         QFontDatabase.addApplicationFont("fonts/Rubik-Regular.ttf")
 
-        # digits
-        self.ui.btn_0.clicked.connect(self.add_digit)
-        self.ui.btn_1.clicked.connect(self.add_digit)
-        self.ui.btn_2.clicked.connect(self.add_digit)
-        self.ui.btn_3.clicked.connect(self.add_digit)
-        self.ui.btn_4.clicked.connect(self.add_digit)
-        self.ui.btn_5.clicked.connect(self.add_digit)
-        self.ui.btn_6.clicked.connect(self.add_digit)
-        self.ui.btn_7.clicked.connect(self.add_digit)
-        self.ui.btn_8.clicked.connect(self.add_digit)
-        self.ui.btn_9.clicked.connect(self.add_digit)
+        # connect digits
+        for btn in config.DIGIT_BUTTONS:
+            getattr(self.ui, btn).clicked.connect(self.add_digit)
+            
+        # connect math operations
+        self.ui.btn_calc.clicked.connect(self.calculate)
+        for btn in config.MATH_OPERATIONS:
+            getattr(self.ui, btn).clicked.connect(self.math_operation)
 
-        # actions
+        # connect actions
         self.ui.btn_clear.clicked.connect(self.clear_all)
         self.ui.btn_ce.clicked.connect(self.clear_entry)
         self.ui.btn_point.clicked.connect(self.add_point)
         self.ui.btn_neg.clicked.connect(self.negate)
         self.ui.btn_backspace.clicked.connect(self.backspace)
 
-        # math
-        self.ui.btn_calc.clicked.connect(self.calculate)
-        self.ui.btn_add.clicked.connect(self.math_operation)
-        self.ui.btn_sub.clicked.connect(self.math_operation)
-        self.ui.btn_mul.clicked.connect(self.math_operation)
-        self.ui.btn_div.clicked.connect(self.math_operation)
-
     def add_digit(self) -> None:
         self.remove_error()
         self.clear_temp_if_equality()
         btn = self.sender()
 
-        digit_buttons = ('btn_0', 'btn_1', 'btn_2', 'btn_3', 'btn_4',
-                         'btn_5', 'btn_6', 'btn_7', 'btn_8', 'btn_9')
-
-        if btn.objectName() in digit_buttons:
+        if btn.objectName() in config.DIGIT_BUTTONS:
             if self.entry.text() == '0':
                 self.entry.setText(btn.text())
             else:
@@ -136,7 +117,6 @@ class Calculator(QMainWindow):
     def remove_trailing_zeros(num: str) -> str:
         n = str(float(num))
         return n.replace('.0', '') if n.endswith('.0') else n
-        # return n[:-2] if n[-2:] == '.0' else n
 
     def add_temp(self) -> None:
         btn = self.sender()
@@ -187,9 +167,9 @@ class Calculator(QMainWindow):
 
             except ZeroDivisionError:
                 if self.get_temp_num() == 0:
-                    self.show_error(error_undefined)
+                    self.show_error(config.ERROR_UNDEFINED)
                 else:
-                    self.show_error(error_zero_div)
+                    self.show_error(config.ERROR_ZERO_DIV)
 
     def math_operation(self) -> None:
         temp = self.temp.text()
@@ -218,7 +198,7 @@ class Calculator(QMainWindow):
         self.disable_buttons(True)
 
     def remove_error(self) -> None:
-        if self.entry.text() in (error_undefined, error_zero_div):
+        if self.entry.text() in (config.ERROR_UNDEFINED, config.ERROR_ZERO_DIV):
             self.entry.setMaxLength(self.entry_max_len)
             self.entry.setText('0')
             self.adjust_entry_font_size()
@@ -246,7 +226,7 @@ class Calculator(QMainWindow):
         self.ui.btn_point.setStyleSheet(css_color)
 
     def adjust_entry_font_size(self) -> None:
-        font_size = default_entry_font_size
+        font_size = config.DEFAULT_ENTRY_FONT_SIZE
         while self.get_entry_text_width() > self.entry.width() - 15:
             font_size -= 1
             self.entry.setStyleSheet('font-size: ' + str(font_size) + 'pt; border: none;')
@@ -255,13 +235,13 @@ class Calculator(QMainWindow):
         while self.get_entry_text_width() < self.entry.width() - 60:
             font_size += 1
 
-            if font_size > default_entry_font_size:
+            if font_size > config.DEFAULT_ENTRY_FONT_SIZE:
                 break
 
             self.entry.setStyleSheet('font-size: ' + str(font_size) + 'pt; border: none;')
 
     def adjust_temp_font_size(self) -> None:
-        font_size = default_font_size
+        font_size = config.DEFAULT_FONT_SIZE
         while self.get_temp_text_width() > self.temp.width() - 10:
             font_size -= 1
             self.temp.setStyleSheet('font-size: ' + str(font_size) + 'pt; color: #888;')
@@ -270,7 +250,7 @@ class Calculator(QMainWindow):
         while self.get_temp_text_width() < self.temp.width() - 60:
             font_size += 1
 
-            if font_size > default_font_size:
+            if font_size > config.DEFAULT_FONT_SIZE:
                 break
 
             self.temp.setStyleSheet('font-size: ' + str(font_size) + 'pt; color: #888;')
