@@ -108,7 +108,7 @@ class Calculator(QMainWindow):
             if len(entry) == 2 and '-' in entry:
                 self.entry.setText('0')
             else:
-                self.entry.setText(entry.replace('0', ''))  # entry[:-1]
+                self.entry.setText(entry[:-1])
         else:
             self.entry.setText('0')
 
