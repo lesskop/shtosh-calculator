@@ -5,7 +5,7 @@ from operator import add, sub, mul, truediv
 from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtGui import QFontDatabase
 
-from design import Ui_MainWindow
+from ui.design import Ui_MainWindow
 import config
 
 operations = {
@@ -26,18 +26,15 @@ class Calculator(QMainWindow):
         self.temp = self.ui.lbl_temp
         self.entry_max_len = self.entry.maxLength()
 
-        QFontDatabase.addApplicationFont("fonts/Rubik-Regular.ttf")
+        QFontDatabase.addApplicationFont("ui/fonts/Rubik-Regular.ttf")
 
-        # connect digits
         for btn in config.DIGIT_BUTTONS:
             getattr(self.ui, btn).clicked.connect(self.add_digit)
 
-        # connect math operations
         self.ui.btn_calc.clicked.connect(self.calculate)
         for btn in config.MATH_OPERATIONS:
             getattr(self.ui, btn).clicked.connect(self.math_operation)
 
-        # connect actions
         self.ui.btn_clear.clicked.connect(self.clear_all)
         self.ui.btn_ce.clicked.connect(self.clear_entry)
         self.ui.btn_point.clicked.connect(self.add_point)
@@ -63,6 +60,12 @@ class Calculator(QMainWindow):
             self.entry.setText(self.entry.text() + '.')
             self.adjust_entry_font_size()
 
+    def avoid_deleting_char_on_negation(self, entry: str) -> None:
+        if len(entry) == self.entry_max_len + 1 and '-' in entry:
+            self.entry.setMaxLength(self.entry_max_len + 1)
+        else:
+            self.entry.setMaxLength(self.entry_max_len)
+
     def negate(self) -> None:
         self.clear_temp_if_equality()
         entry = self.entry.text()
@@ -73,11 +76,7 @@ class Calculator(QMainWindow):
         else:
             entry = entry[1:]
 
-        if len(entry) == self.entry_max_len + 1 and '-' in entry:
-            self.entry.setMaxLength(self.entry_max_len + 1)
-        else:
-            self.entry.setMaxLength(self.entry_max_len)
-
+        self.avoid_deleting_char_on_negation(entry)
         self.entry.setText(entry)
         self.adjust_entry_font_size()
 
@@ -115,7 +114,7 @@ class Calculator(QMainWindow):
             self.adjust_temp_font_size()
 
     @staticmethod
-    def remove_trailing_zeros(num: str) -> str:
+    def remove_trailing_zeros(num: Union[float, int, str]) -> str:
         n = str(float(num))
         return n.replace('.0', '') if n.endswith('.0') else n
 
@@ -149,45 +148,37 @@ class Calculator(QMainWindow):
         return self.temp.fontMetrics().boundingRect(self.temp.text()).width()
 
     def calculate(self) -> Optional[str]:
-        entry = self.entry.text()
-        temp = self.temp.text()
+        try:
+            result = self.remove_trailing_zeros(
+                (operations[self.get_math_sign()](self.get_temp_num(), self.get_entry_num())))
+            self.temp.setText(self.temp.text() + self.remove_trailing_zeros(self.entry.text()) + ' =')
+            self.adjust_temp_font_size()
+            self.entry.setText(result)
+            self.adjust_entry_font_size()
+            return result
 
-        if temp:
-            try:
-                result = self.remove_trailing_zeros(
-                    str(operations[self.get_math_sign()](
-                        self.get_temp_num(), self.get_entry_num()))
-                )
-                self.temp.setText(
-                    temp + self.remove_trailing_zeros(entry) + ' =')
-                self.adjust_temp_font_size()
-                self.entry.setText(result)
-                self.adjust_entry_font_size()
-                return result
+        except KeyError:
+            pass
+        except ZeroDivisionError:
+            self.show_zero_division_error()
 
-            except KeyError:
-                pass
-
-            except ZeroDivisionError:
-                if self.get_temp_num() == 0:
-                    self.show_error(config.ERROR_UNDEFINED)
-                else:
-                    self.show_error(config.ERROR_ZERO_DIV)
+    def show_zero_division_error(self) -> None:
+        if self.get_temp_num() == 0:
+            self.show_error(config.ERROR_UNDEFINED)
+        else:
+            self.show_error(config.ERROR_ZERO_DIV)
 
     def math_operation(self) -> None:
-        temp = self.temp.text()
         btn = self.sender()
 
-        if not temp:
+        if not self.temp.text():
             self.add_temp()
         else:
             if self.get_math_sign() != btn.text():
                 if self.get_math_sign() == '=':
                     self.add_temp()
                 else:
-                    # Replace sign
-                    self.temp.setText(
-                        temp[:-2] + f'{btn.text()} ')
+                    self.replace_temp_sign()
             else:
                 try:
                     self.temp.setText(self.calculate() + f' {btn.text()} ')
@@ -195,6 +186,10 @@ class Calculator(QMainWindow):
                     pass
 
         self.adjust_temp_font_size()
+
+    def replace_temp_sign(self) -> None:
+        btn = self.sender()
+        self.temp.setText(self.temp.text()[:-2] + f'{btn.text()} ')
 
     def show_error(self, text: str) -> None:
         self.entry.setMaxLength(len(text))
@@ -224,8 +219,7 @@ class Calculator(QMainWindow):
         font_size = config.DEFAULT_ENTRY_FONT_SIZE
         while self.get_entry_text_width() > self.entry.width() - 15:
             font_size -= 1
-            self.entry.setStyleSheet(
-                'font-size: ' + str(font_size) + 'pt; border: none;')
+            self.entry.setStyleSheet(f'font-size: {font_size}pt; border: none;')
 
         font_size = 1
         while self.get_entry_text_width() < self.entry.width() - 60:
@@ -234,15 +228,13 @@ class Calculator(QMainWindow):
             if font_size > config.DEFAULT_ENTRY_FONT_SIZE:
                 break
 
-            self.entry.setStyleSheet(
-                'font-size: ' + str(font_size) + 'pt; border: none;')
+            self.entry.setStyleSheet(f'font-size: {font_size}pt; border: none;')
 
     def adjust_temp_font_size(self) -> None:
         font_size = config.DEFAULT_FONT_SIZE
         while self.get_temp_text_width() > self.temp.width() - 10:
             font_size -= 1
-            self.temp.setStyleSheet(
-                'font-size: ' + str(font_size) + 'pt; color: #888;')
+            self.temp.setStyleSheet(f'font-size: {font_size}pt; color: #888;')
 
         font_size = 1
         while self.get_temp_text_width() < self.temp.width() - 60:
@@ -251,8 +243,7 @@ class Calculator(QMainWindow):
             if font_size > config.DEFAULT_FONT_SIZE:
                 break
 
-            self.temp.setStyleSheet(
-                'font-size: ' + str(font_size) + 'pt; color: #888;')
+            self.temp.setStyleSheet(f'font-size: {font_size}pt; color: #888;')
 
     def resizeEvent(self, event) -> None:
         self.adjust_entry_font_size()
