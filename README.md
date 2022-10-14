@@ -1,15 +1,16 @@
 # Shtosh calculator
 
+![GitHub last commit](https://img.shields.io/github/last-commit/lesskop/shtosh-calculator)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/lesskop/shtosh-calculator)
-![GitHub Repo stars](https://img.shields.io/github/stars/lesskop/shtosh-calculator?style=social)
-![GitHub forks](https://img.shields.io/github/forks/lesskop/shtosh-calculator?style=social)
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCWNlTmzBisvogxKQMV-lhRw?style=social)
+![YouTube Video Views](https://img.shields.io/youtube/views/q3ma5waVGb0?style=social)
 
 Simple cross-platform GUI calculator written in Python
 
 ![shtosh calculator](shtosh-calculator.png)
 
 ## Requirements
+
+Python 3.6+
 
 `pip install -r requirements.txt`
 
@@ -21,10 +22,6 @@ Simple cross-platform GUI calculator written in Python
 
 [First video](https://youtu.be/q3ma5waVGb0)
 
-### Статьи на Хабре
+### Хабр
 
 [Первая статья](https://habr.com/p/586730/)
-
-[Вторая статья](https://habr.com/p/587276/)
-
-[Третья статья](https://habr.com/p/589847/)
