@@ -1,3 +1,5 @@
+from operator import add, sub, mul, truediv
+
 ERROR_ZERO_DIV = 'Division by zero'
 ERROR_UNDEFINED = 'Result is undefined'
 
@@ -10,3 +12,10 @@ BUTTONS_TO_DISABLE = [
     'btn_calc', 'btn_add', 'btn_sub',
     'btn_mul', 'btn_div', 'btn_neg', 'btn_point'
 ]
+
+OPERATIONS = {
+    '+': add,
+    '−': sub,
+    '×': mul,
+    '/': truediv
+}

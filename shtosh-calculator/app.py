@@ -1,19 +1,12 @@
 import sys
 from typing import Union, Optional
-from operator import add, sub, mul, truediv
 
 from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtGui import QFontDatabase
 
 from ui.design import Ui_MainWindow
+import ui.files_rc
 import config
-
-operations = {
-    '+': add,
-    '−': sub,
-    '×': mul,
-    '/': truediv
-}
 
 
 class Calculator(QMainWindow):
@@ -150,11 +143,16 @@ class Calculator(QMainWindow):
     def calculate(self) -> Optional[str]:
         try:
             result = self.remove_trailing_zeros(
-                (operations[self.get_math_sign()](self.get_temp_num(), self.get_entry_num())))
-            self.temp.setText(self.temp.text() + self.remove_trailing_zeros(self.entry.text()) + ' =')
+                (config.OPERATIONS[self.get_math_sign()](
+                    self.get_temp_num(), self.get_entry_num())))
+
+            self.temp.setText(self.temp.text() +
+                              self.remove_trailing_zeros(self.entry.text()) + ' =')
+
             self.adjust_temp_font_size()
             self.entry.setText(result)
             self.adjust_entry_font_size()
+
             return result
 
         except KeyError:
