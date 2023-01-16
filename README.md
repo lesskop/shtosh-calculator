@@ -8,6 +8,14 @@ Simple cross-platform GUI calculator written in Python
 
 ![shtosh calculator](shtosh-calculator.png)
 
+## Download
+
+[Last release](https://github.com/lesskop/shtosh-calculator/releases/tag/v1.0)
+
+- [Windows](https://github.com/lesskop/shtosh-calculator/releases/download/v1.0/shtosh-calculator-v1.0-win64.zip)
+- [Linux](https://github.com/lesskop/shtosh-calculator/releases/download/v1.0/shtosh-calculator-v1.0-linux64.tar.gz)
+- [macOS](https://github.com/lesskop/shtosh-calculator/releases/download/v1.0/shtosh-calculator-v1.0-macos.tar.gz)
+
 ## Requirements
 
 Python 3.6+
