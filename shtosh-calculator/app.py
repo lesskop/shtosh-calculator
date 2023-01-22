@@ -34,6 +34,8 @@ class Calculator(QMainWindow):
         self.ui.btn_neg.clicked.connect(self.negate)
         self.ui.btn_backspace.clicked.connect(self.backspace)
 
+        self.ui.le_entry.textChanged.connect(self.adjust_entry_font_size)
+
     def add_digit(self) -> None:
         self.remove_error()
         self.clear_temp_if_equality()
@@ -45,13 +47,10 @@ class Calculator(QMainWindow):
             else:
                 self.entry.setText(self.entry.text() + btn.text())
 
-        self.adjust_entry_font_size()
-
     def add_point(self) -> None:
         self.clear_temp_if_equality()
         if '.' not in self.entry.text():
             self.entry.setText(self.entry.text() + '.')
-            self.adjust_entry_font_size()
 
     def avoid_deleting_char_on_negation(self, entry: str) -> None:
         if len(entry) == self.entry_max_len + 1 and '-' in entry:
@@ -71,7 +70,6 @@ class Calculator(QMainWindow):
 
         self.avoid_deleting_char_on_negation(entry)
         self.entry.setText(entry)
-        self.adjust_entry_font_size()
 
     def backspace(self) -> None:
         self.remove_error()
@@ -86,12 +84,9 @@ class Calculator(QMainWindow):
         else:
             self.entry.setText('0')
 
-        self.adjust_entry_font_size()
-
     def clear_all(self) -> None:
         self.remove_error()
         self.entry.setText('0')
-        self.adjust_entry_font_size()
         self.temp.clear()
         self.adjust_temp_font_size()
 
@@ -99,7 +94,6 @@ class Calculator(QMainWindow):
         self.remove_error()
         self.clear_temp_if_equality()
         self.entry.setText('0')
-        self.adjust_entry_font_size()
 
     def clear_temp_if_equality(self) -> None:
         if self.get_math_sign() == '=':
@@ -119,7 +113,6 @@ class Calculator(QMainWindow):
             self.temp.setText(entry + f' {btn.text()} ')
             self.adjust_temp_font_size()
             self.entry.setText('0')
-            self.adjust_entry_font_size()
 
     def get_entry_num(self) -> Union[int, float]:
         entry = self.entry.text().strip('.')
@@ -151,7 +144,6 @@ class Calculator(QMainWindow):
 
             self.adjust_temp_font_size()
             self.entry.setText(result)
-            self.adjust_entry_font_size()
 
             return result
 
@@ -192,14 +184,12 @@ class Calculator(QMainWindow):
     def show_error(self, text: str) -> None:
         self.entry.setMaxLength(len(text))
         self.entry.setText(text)
-        self.adjust_entry_font_size()
         self.disable_buttons(True)
 
     def remove_error(self) -> None:
         if self.entry.text() in (config.ERROR_UNDEFINED, config.ERROR_ZERO_DIV):
             self.entry.setMaxLength(self.entry_max_len)
             self.entry.setText('0')
-            self.adjust_entry_font_size()
             self.disable_buttons(False)
 
     def disable_buttons(self, disable: bool) -> None:
