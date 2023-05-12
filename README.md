@@ -3,7 +3,10 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/lesskop/shtosh-calculator)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/lesskop/shtosh-calculator)
 ![GitHub all releases](https://img.shields.io/github/downloads/lesskop/shtosh-calculator/total)
-![YouTube Video Views](https://img.shields.io/youtube/views/q3ma5waVGb0)
+
+<a href="https://www.youtube.com/watch?v=q3ma5waVGb0">
+<img src="https://img.shields.io/youtube/views/q3ma5waVGb0" alt="YouTube Video Views">
+</a>
 
 Simple cross-platform GUI calculator written in Python
 
