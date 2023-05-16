@@ -21,20 +21,27 @@ class Calculator(QMainWindow):
 
         QFontDatabase.addApplicationFont("ui/fonts/Rubik-Regular.ttf")
 
+        self.connect_digit_buttons()
+        self.connect_math_operations()
+        self.connect_other_buttons()
+
+        self.ui.le_entry.textChanged.connect(self.adjust_entry_font_size)
+
+    def connect_digit_buttons(self) -> None:
         for btn in config.DIGIT_BUTTONS:
             getattr(self.ui, btn).clicked.connect(self.add_digit)
 
+    def connect_math_operations(self) -> None:
         self.ui.btn_calc.clicked.connect(self.calculate)
         for btn in config.MATH_OPERATIONS:
             getattr(self.ui, btn).clicked.connect(self.math_operation)
 
+    def connect_other_buttons(self) -> None:
         self.ui.btn_clear.clicked.connect(self.clear_all)
         self.ui.btn_ce.clicked.connect(self.clear_entry)
         self.ui.btn_point.clicked.connect(self.add_point)
         self.ui.btn_neg.clicked.connect(self.negate)
         self.ui.btn_backspace.clicked.connect(self.backspace)
-
-        self.ui.le_entry.textChanged.connect(self.adjust_entry_font_size)
 
     def add_digit(self) -> None:
         self.remove_error()
@@ -236,6 +243,7 @@ class Calculator(QMainWindow):
     def resizeEvent(self, event) -> None:
         self.adjust_entry_font_size()
         self.adjust_temp_font_size()
+
 
 
 if __name__ == "__main__":
