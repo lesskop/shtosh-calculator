@@ -25,7 +25,8 @@ class Calculator(QMainWindow):
         self.connect_math_operations()
         self.connect_other_buttons()
 
-        self.ui.le_entry.textChanged.connect(self.adjust_entry_font_size)
+        self.entry.textChanged.connect(self.adjust_entry_font_size)
+        self.temp.textChanged.connect(self.adjust_temp_font_size)
 
     def connect_digit_buttons(self) -> None:
         for btn in config.DIGIT_BUTTONS:
@@ -95,7 +96,6 @@ class Calculator(QMainWindow):
         self.remove_error()
         self.entry.setText('0')
         self.temp.clear()
-        self.adjust_temp_font_size()
 
     def clear_entry(self) -> None:
         self.remove_error()
@@ -105,7 +105,6 @@ class Calculator(QMainWindow):
     def clear_temp_if_equality(self) -> None:
         if self.get_math_sign() == '=':
             self.temp.clear()
-            self.adjust_temp_font_size()
 
     @staticmethod
     def remove_trailing_zeros(num: Union[float, int, str]) -> str:
@@ -118,7 +117,6 @@ class Calculator(QMainWindow):
 
         if not self.temp.text() or self.get_math_sign() == '=':
             self.temp.setText(entry + f' {btn.text()} ')
-            self.adjust_temp_font_size()
             self.entry.setText('0')
 
     def get_entry_num(self) -> Union[int, float]:
@@ -149,7 +147,6 @@ class Calculator(QMainWindow):
             self.temp.setText(self.temp.text() +
                               self.remove_trailing_zeros(self.entry.text()) + ' =')
 
-            self.adjust_temp_font_size()
             self.entry.setText(result)
 
             return result
@@ -181,8 +178,6 @@ class Calculator(QMainWindow):
                     self.temp.setText(self.calculate() + f' {btn.text()} ')
                 except TypeError:
                     pass
-
-        self.adjust_temp_font_size()
 
     def replace_temp_sign(self) -> None:
         btn = self.sender()
@@ -243,7 +238,6 @@ class Calculator(QMainWindow):
     def resizeEvent(self, event) -> None:
         self.adjust_entry_font_size()
         self.adjust_temp_font_size()
-
 
 
 if __name__ == "__main__":

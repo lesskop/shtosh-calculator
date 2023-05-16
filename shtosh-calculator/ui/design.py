@@ -1,6 +1,8 @@
 from PySide6.QtCore import QCoreApplication, QMetaObject, QSize, Qt
 from PySide6.QtGui import QCursor, QIcon
-from PySide6.QtWidgets import QGridLayout, QLabel, QLineEdit, QPushButton, QSizePolicy, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QGridLayout, QLineEdit, QPushButton, QSizePolicy, QVBoxLayout, QWidget
+
+from ui.custom_label import CustomLabel
 
 
 class Ui_MainWindow(object):
@@ -37,7 +39,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.lbl_temp = QLabel(self.centralwidget)
+        self.lbl_temp = CustomLabel(self.centralwidget)
         self.lbl_temp.setObjectName(u"lbl_temp")
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
