@@ -2,11 +2,8 @@
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/lesskop/shtosh-calculator)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/lesskop/shtosh-calculator)
-![GitHub all releases](https://img.shields.io/github/downloads/lesskop/shtosh-calculator/total)
-
-<a href="https://www.youtube.com/watch?v=q3ma5waVGb0">
-<img src="https://img.shields.io/youtube/views/q3ma5waVGb0" alt="YouTube Video Views">
-</a>
+[![GitHub all releases](https://img.shields.io/github/downloads/lesskop/shtosh-calculator/total)](#download)
+[![YouTube Views](https://img.shields.io/youtube/views/q3ma5waVGb0)](https://www.youtube.com/watch?v=q3ma5waVGb0)
 
 Simple cross-platform GUI calculator written in Python
 
@@ -20,13 +17,64 @@ Simple cross-platform GUI calculator written in Python
 - [Linux](https://github.com/lesskop/shtosh-calculator/releases/download/v1.0/shtosh-calculator-v1.0-linux64.tar.gz)
 - [macOS](https://github.com/lesskop/shtosh-calculator/releases/download/v1.0/shtosh-calculator-v1.0-macos.tar.gz)
 
-## Requirements
+## Installation
 
-Python 3.6+
+1. You should have [Python 3.6+](https://www.python.org/downloads/) and [Git](https://git-scm.com/downloads) installed on your local machine.
 
-`pip install -r requirements.txt`
+2. Clone the repository:
 
-## Tutorials
+```bash
+git clone https://github.com/lesskop/shtosh-calculator.git
+```
+
+3. Change the directory:
+
+```bash
+cd shtosh-calculator
+```
+
+4. Create a virtual environment (recommended):
+
+```bash
+python -m venv venv
+```
+
+5. Activate it:
+
+- Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+- Linux/macOS:
+
+```bash
+source venv/bin/activate
+```
+
+6. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+Run application with command:
+
+```bash
+python src/app.py
+```
+
+or
+
+```bash
+cd src
+python app.py
+```
+
+## Tutorials with English subtitles
 
 ### YouTube
 
